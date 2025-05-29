@@ -36,7 +36,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setLoading(false)
           return
         }
-
+        console.log("Printing on line 39, userdata from db");
         // Get user data from the database
         const { data: userData, error: userError } = await supabase
           .from("users")
@@ -66,6 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === "SIGNED_IN" && session) {
+        console.log("Printing on line 69, user data from database");
         // Get user data from the database
         const { data: userData, error: userError } = await supabase
           .from("users")
@@ -90,8 +91,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signIn = async (email: string, password: string) => {
     try {
       setLoading(true)
-      const { error } = await supabase.auth.signInWithPassword({ email, password })
+      const { data, error } = await supabase.auth.signInWithPassword({ email, password })
 
+      console.log(data, "Printing on line 95, signIn");
       if (error) {
         throw error
       }
@@ -122,5 +124,7 @@ export const useAuth = () => {
   if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider")
   }
+
+  console.log("Printing on line 127, before context");
   return context
 }
