@@ -32,12 +32,14 @@ export default function LoginPage() {
     try {
       await signIn(email, password)
 
+
       // Get current user
       const {
         data: { user },
         error: userError,
       } = await supabase.auth.getUser()
 
+      console.log(user, "By Jeff line 42");
       if (userError || !user) {
         throw new Error("Failed to get user data")
       }
@@ -48,6 +50,8 @@ export default function LoginPage() {
         .select("role")
         .eq("id", user.id)
         .single()
+
+      console.log(userData, "By Jeff ROLE line 54", roleError, "ERror");
 
       if (roleError) {
         throw roleError
