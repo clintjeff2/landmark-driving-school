@@ -30,8 +30,9 @@ export default function LoginPage() {
     setError(null)
 
     try {
+      console.log(email, password, "line 33")
       await signIn(email, password)
-
+      
 
       // Get current user
       const {
