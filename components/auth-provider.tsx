@@ -28,14 +28,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				.from('users')
 				.select('*')
 				.eq('id', userId)
-				.single();
 
 			if (userError) {
 				console.error('Error fetching user data:', userError);
 				return null;
 			}
 
-			return userData as User;
+			return userData[0] as User;
 		} catch (error) {
 			console.error('Error in fetchUserData:', error);
 			return null;
@@ -93,6 +92,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 				if (userData) {
 					console.log('User data fetched successfully:', userData);
 					setUser(userData);
+					switch (userData.role) {
+						case 'admin':
+							router.push('/admin/dashboard');
+							break;
+						case 'student':
+							router.push('/student/dashboard');
+							break;
+						case 'instructor':
+							router.push('/instructor/dashboard');
+							break;
+						case 'accountant':
+							router.push('/accountant/dashboard');
+							break;
+						default:
+							router.push('/dashboard');
+					}
 				} else {
 					setUser(null);
 				}
@@ -111,13 +126,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 			data: { subscription },
 		} = supabase.auth.onAuthStateChange(async (event, session) => {
 			try {
-				console.log('Auth state changed:', event);
+				console.log(
+					'Auth state changed:',
+					event,
+					session,
+					event === 'SIGNED_IN',
+					!!session
+				);
 
-				if (event === 'SIGNED_IN' && session) {
+				if (event === 'SIGNED_IN' && !!session) {
 					setLoading(true);
+					console.log("In line 140")
 
 					// Get user data from the database
 					const userData = await fetchUserData(session.user.id);
+					console.log("In line 144")
 					if (userData) {
 						console.log('User signed in, setting user data:', userData);
 						setUser(userData);
