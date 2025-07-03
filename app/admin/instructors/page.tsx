@@ -121,6 +121,7 @@ export default function InstructorsPage() {
       setLoading(false)
     }
   }
+  
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target

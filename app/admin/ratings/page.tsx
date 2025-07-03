@@ -43,6 +43,45 @@ export default function RatingsPage() {
     fetchRatings()
   }, [])
 
+  // const fetchRatings = async () => {
+  //   try {
+  //     setLoading(true)
+  //     const { data, error } = await supabase
+  //       .from("feedback")
+  //       .select(`
+  //         id,
+  //         rating,
+  //         comment,
+  //         created_at,
+  //         users!student_id(name),
+  //         users!instructor_id(name)
+  //       `)
+  //       .order("created_at", { ascending: false })
+
+  //     if (error) throw error
+
+  //     // Transform the data to flatten the structure
+  //     const transformedData = data.map((feedback) => ({
+  //       id: feedback.id,
+  //       student_name: feedback.users?.name || "Unknown Student",
+  //       instructor_name: feedback.users?.name || "Unknown Instructor",
+  //       rating: feedback.rating,
+  //       comment: feedback.comment || "",
+  //       created_at: feedback.created_at,
+  //     }))
+
+  //     setRatings(transformedData)
+  //   } catch (err: any) {
+  //     setError(err.message)
+  //     toast({
+  //       title: "Error",
+  //       description: "Failed to fetch ratings data",
+  //       variant: "destructive",
+  //     })
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
   const fetchRatings = async () => {
     try {
       setLoading(true)
@@ -53,23 +92,23 @@ export default function RatingsPage() {
           rating,
           comment,
           created_at,
-          users!student_id(name),
-          users!instructor_id(name)
+          student:users!student_id(name),
+          instructor:users!instructor_id(name)
         `)
         .order("created_at", { ascending: false })
-
+  
       if (error) throw error
-
+  
       // Transform the data to flatten the structure
       const transformedData = data.map((feedback) => ({
         id: feedback.id,
-        student_name: feedback.users?.name || "Unknown Student",
-        instructor_name: feedback.users?.name || "Unknown Instructor",
+        student_name: feedback.student?.name || "Unknown Student",
+        instructor_name: feedback.instructor?.name || "Unknown Instructor",
         rating: feedback.rating,
         comment: feedback.comment || "",
         created_at: feedback.created_at,
       }))
-
+  
       setRatings(transformedData)
     } catch (err: any) {
       setError(err.message)
