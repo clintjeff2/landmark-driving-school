@@ -5,7 +5,7 @@ import type React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Car, Calendar, Users, Star, Bell, Settings, LogOut } from "lucide-react"
+import { Car, Calendar, Users, Star, Bell, Settings, LogOut, Play } from "lucide-react"
 import { useAuth } from "@/components/auth-provider"
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -17,6 +17,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { name: "Schedules", href: "/admin/schedules", icon: <Calendar className="h-5 w-5" /> },
     { name: "Students", href: "/admin/students", icon: <Users className="h-5 w-5" /> },
     { name: "Instructors", href: "/admin/instructors", icon: <Users className="h-5 w-5" /> },
+    { name: "Videos", href: "/admin/videos", icon: <Play className="h-5 w-5" /> },
     { name: "Ratings", href: "/admin/ratings", icon: <Star className="h-5 w-5" /> },
     { name: "Settings", href: "/admin/settings", icon: <Settings className="h-5 w-5" /> },
   ]
