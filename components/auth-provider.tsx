@@ -36,7 +36,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 			return userData[0] as User;
 		} catch (error) {
-			console.error('Error in fetchUserData:', error);
+			console.error('Error in fetchUserData function:', error);
 			return null;
 		}
 	};
