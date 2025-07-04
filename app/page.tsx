@@ -265,9 +265,10 @@ export default function Home() {
             <div className="space-y-4">
               <h3 className="font-semibold text-gray-900">Contact Info</h3>
               <div className="space-y-2 text-gray-600">
-                <p>📞 (555) 123-4567</p>
+                <p>📞 (+237) 672 339 570 </p>
                 <p>📧 info@landmarkdriving.com</p>
-                <p>📍 123 Main St, City, State 12345</p>
+                <p>📍 CAMPUS A: UB Junction, Molyko - Buea</p>
+                <p>📍 CAMOUS B: Towards Mile 18 JUNCTION, Buea</p>
               </div>
             </div>
           </div>
